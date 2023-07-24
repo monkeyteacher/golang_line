@@ -2,10 +2,10 @@ package main
 
 import (
 	"golang_line/configs"
+	"golang_line/database"
 )
 
 func main() {
 	configs.InitEnvConfigs()
-	// fmt.Println(configs.EnvConfigs.LineChannelSecret)
-	// fmt.Println(configs.EnvConfigs.LineChannelToken)
+	database.DBInit()
 }
