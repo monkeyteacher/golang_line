@@ -1,0 +1,21 @@
+version: '3'
+
+services:
+
+  mongo:
+    image: mongo:4.4
+    restart: always
+    ports:
+      - 27017:27017
+    env_file:
+      - .env
+    volumes:
+      - ../mongo_data:/data/db
+  server:
+    build: .
+    working_dir: /golang_test
+    ports:
+      - 8088:8088
+    depends_on:
+      - mongo
+    restart: always
