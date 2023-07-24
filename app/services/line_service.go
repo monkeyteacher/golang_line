@@ -34,3 +34,12 @@ func (h *lineService) LineMessageHandler(MyBot *linebot.Client, events []*linebo
 		}
 	}
 }
+
+func (h *lineService) SendMessageByUserID(MyBot *linebot.Client, userID string, message string) error {
+	if _, err := MyBot.PushMessage(userID, linebot.NewTextMessage(message)).Do(); err != nil {
+		log.Print(err)
+		return err
+	} else {
+		return nil
+	}
+}

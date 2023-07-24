@@ -8,4 +8,5 @@ import (
 
 func ApiRoutes(router *gin.Engine) {
 	router.POST("/", controllers.LineController().LineCallBack())
+	router.POST("sendMessage", controllers.LineController().SendMessage())
 }

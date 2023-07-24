@@ -7,6 +7,7 @@ import (
 	"log"
 	"time"
 
+	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"
 )
 
@@ -30,4 +31,27 @@ func (h *messageRepository) Create(userID string, lineMessage string) *mongo.Ins
 		log.Fatal(err)
 	}
 	return result
+}
+
+func (h *messageRepository) GetMessagesbyUserID(userID string) ([]models.Message, error) {
+	return h.findOnebyQuery(bson.M{"user_id": userID})
+}
+
+func (h *messageRepository) findOnebyQuery(query interface{}) ([]models.Message, error) {
+	messageCollection := database.MI.DB.Collection("message")
+	var messages []models.Message
+	ctx, _ := context.WithTimeout(context.Background(), 10*time.Second)
+	results, err := messageCollection.Find(ctx, query)
+	if err == mongo.ErrNoDocuments {
+		log.Fatal(err)
+	}
+
+	for results.Next(ctx) {
+		var singleMessage models.Message
+		if err = results.Decode(&singleMessage); err != nil {
+			log.Fatal(err)
+		}
+		messages = append(messages, singleMessage)
+	}
+	return messages, err
 }
