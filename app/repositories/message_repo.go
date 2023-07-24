@@ -37,6 +37,10 @@ func (h *messageRepository) GetMessagesbyUserID(userID string) ([]models.Message
 	return h.findOnebyQuery(bson.M{"user_id": userID})
 }
 
+func (h *messageRepository) GetAllMessages() ([]models.Message, error) {
+	return h.findOnebyQuery(bson.M{})
+}
+
 func (h *messageRepository) findOnebyQuery(query interface{}) ([]models.Message, error) {
 	messageCollection := database.MI.DB.Collection("message")
 	var messages []models.Message

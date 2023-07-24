@@ -2,6 +2,7 @@ package services
 
 import (
 	"errors"
+	"golang_line/app/models"
 	"golang_line/app/repositories"
 )
 
@@ -22,4 +23,14 @@ func (h *userService) CheckUserExist(userID string) (bool, error) {
 			return false, errors.New("UserID 不存在")
 		}
 	}
+}
+
+func (h *userService) GetUserMessagebyUserID(UserID string) ([]models.Message, error) {
+	messages, err := repositories.MessageRepository().GetMessagesbyUserID(UserID)
+	return messages, err
+}
+
+func (h *userService) GetALLMessage() ([]models.Message, error) {
+	messages, err := repositories.MessageRepository().GetAllMessages()
+	return messages, err
 }
