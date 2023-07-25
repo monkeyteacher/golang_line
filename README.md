@@ -1,6 +1,6 @@
 # golang_line
 
-golang test step:https://hackmd.io/AqwKuHViRASxKGRYYs571w
+golang test step：https://hackmd.io/AqwKuHViRASxKGRYYs571w
 
 這是一個golang的Line bot專案\
 Line bot 將會記錄使用者傳入的訊息 也可以詢問Line Bot使用者ID
